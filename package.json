@@ -1,13 +1,29 @@
 {
-  "name": "vepay-scraper",
-  "version": "1.0.0",
+  "name": "vepay-engine-pro",
+  "version": "2.0.0",
+  "description": "Motor de Scraping de Alto Rendimiento para VEpay",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "render-postbuild": "npx puppeteer browsers install chrome"
+  "engines": {
+    "node": ">=18.0.0"
   },
+  "scripts": {
+    "start": "node --opt-optimization-level=3 --max-old-space-size=450 index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scraper",
+    "venezuela",
+    "vepay",
+    "puppeteer",
+    "high-performance"
+  ],
+  "author": "VEpay Team",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "puppeteer": "^22.6.0"
+    "express": "^4.19.2",
+    "puppeteer": "^22.6.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0"
   }
 }
