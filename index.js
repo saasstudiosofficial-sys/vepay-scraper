@@ -1,12 +1,15 @@
 const puppeteer = require('puppeteer');
 const express = require('express');
+const path = require('path');
 const app = express();
 
 app.get('/', async (req, res) => {
     let browser;
     try {
-        // Quitamos la ruta fija para que Puppeteer use la que el servidor instale por defecto
         browser = await puppeteer.launch({
+            // Forzamos a Puppeteer a buscar en la carpeta donde Render descarga el navegador
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || null,
+            userDataDir: path.join(__dirname, '.cache', 'puppeteer'),
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
@@ -18,7 +21,6 @@ app.get('/', async (req, res) => {
         const page = await browser.newPage();
         await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36");
 
-        // Vamos a la página de las tasas
         await page.goto('https://www.monitordivisasvenezuela.com/', { 
             waitUntil: 'networkidle2', 
             timeout: 60000 
@@ -42,4 +44,4 @@ app.get('/', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`VEpay bot activo` ));
+app.listen(PORT, () => console.log(`VEpay bot activo`));
